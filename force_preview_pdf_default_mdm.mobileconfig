@@ -11,9 +11,9 @@
 			<key>PayloadDisplayName</key>
 			<string>PDF Default Application Settings</string>
 			<key>PayloadIdentifier</key>
-			<string>com.mosyle.launchservices.pdf-preview-default</string>
+			<string>com.organization.launchservices.pdf-preview-default</string>
 			<key>PayloadOrganization</key>
-			<string>Mosyle Deployment</string>
+			<string>Your Organization</string>
 			<key>PayloadType</key>
 			<string>com.apple.LSHandlers</string>
 			<key>PayloadUUID</key>
@@ -100,9 +100,9 @@
 	<key>PayloadDisplayName</key>
 	<string>PDF Default Handler - Preview</string>
 	<key>PayloadIdentifier</key>
-	<string>com.mosyle.pdf-preview-default-profile</string>
+	<string>com.organization.pdf-preview-default-profile</string>
 	<key>PayloadOrganization</key>
-	<string>Mosyle Management</string>
+	<string>Your Organization</string>
 	<key>PayloadRemovalDisallowed</key>
 	<false/>
 	<key>PayloadScope</key>
