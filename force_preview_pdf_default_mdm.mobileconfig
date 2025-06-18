@@ -2,105 +2,67 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<!-- Profile metadata -->
 	<key>PayloadContent</key>
 	<array>
 		<dict>
-			<key>PayloadDescription</key>
-			<string>Configures Preview as the default application for PDF files</string>
 			<key>PayloadDisplayName</key>
-			<string>PDF Default Application Settings</string>
+			<string>LaunchServices - PDF Default Handler</string>
 			<key>PayloadIdentifier</key>
-			<string>com.organization.launchservices.pdf-preview-default</string>
-			<key>PayloadOrganization</key>
-			<string>Your Organization</string>
+			<string>com.organization.launchservices.pdfhandler.alacarte</string>
 			<key>PayloadType</key>
-			<string>com.apple.LSHandlers</string>
+			<string>com.apple.ManagedClient.preferences</string>
 			<key>PayloadUUID</key>
 			<string>3B2F7ADE-0D04-46B1-9C9A-9C3C2F20D9F1</string>
 			<key>PayloadVersion</key>
 			<integer>1</integer>
-			
-			<!-- LaunchServices Handlers -->
-			<key>LSHandlers</key>
-			<array>
-				<!-- PDF by content type (most common) -->
+			<key>PayloadContent</key>
+			<dict>
+				<key>com.apple.LaunchServices</key>
 				<dict>
-					<key>LSHandlerContentType</key>
-					<string>com.adobe.pdf</string>
-					<key>LSHandlerRoleAll</key>
-					<string>com.apple.Preview</string>
-					<key>LSHandlerPreferredVersions</key>
-					<dict>
-						<key>LSHandlerRoleAll</key>
-						<string>-</string>
-					</dict>
+					<key>Forced</key>
+					<array>
+						<dict>
+							<key>mcx_preference_settings</key>
+							<dict>
+								<key>LSHandlers</key>
+								<array>
+									<!-- PDF by UTI com.adobe.pdf -->
+									<dict>
+										<key>LSHandlerContentType</key>
+										<string>com.adobe.pdf</string>
+										<key>LSHandlerRoleAll</key>
+										<string>com.apple.Preview</string>
+									</dict>
+									<!-- PDF by UTI public.pdf -->
+									<dict>
+										<key>LSHandlerContentType</key>
+										<string>public.pdf</string>
+										<key>LSHandlerRoleAll</key>
+										<string>com.apple.Preview</string>
+									</dict>
+									<!-- PDF by file extension -->
+									<dict>
+										<key>LSHandlerContentTag</key>
+										<string>pdf</string>
+										<key>LSHandlerContentTagClass</key>
+										<string>public.filename-extension</string>
+										<key>LSHandlerRoleAll</key>
+										<string>com.apple.Preview</string>
+									</dict>
+								</array>
+							</dict>
+						</dict>
+					</array>
 				</dict>
-				
-				<!-- PDF by extension -->
-				<dict>
-					<key>LSHandlerContentTag</key>
-					<string>pdf</string>
-					<key>LSHandlerContentTagClass</key>
-					<string>public.filename-extension</string>
-					<key>LSHandlerRoleAll</key>
-					<string>com.apple.Preview</string>
-					<key>LSHandlerPreferredVersions</key>
-					<dict>
-						<key>LSHandlerRoleAll</key>
-						<string>-</string>
-					</dict>
-				</dict>
-				
-				<!-- Additional PDF UTIs -->
-				<dict>
-					<key>LSHandlerContentType</key>
-					<string>public.pdf</string>
-					<key>LSHandlerRoleAll</key>
-					<string>com.apple.Preview</string>
-					<key>LSHandlerPreferredVersions</key>
-					<dict>
-						<key>LSHandlerRoleAll</key>
-						<string>-</string>
-					</dict>
-				</dict>
-				
-				<!-- Adobe-specific PDF UTIs -->
-				<dict>
-					<key>LSHandlerContentType</key>
-					<string>com.adobe.acrobat.pdf</string>
-					<key>LSHandlerRoleAll</key>
-					<string>com.apple.Preview</string>
-					<key>LSHandlerPreferredVersions</key>
-					<dict>
-						<key>LSHandlerRoleAll</key>
-						<string>-</string>
-					</dict>
-				</dict>
-				
-				<!-- Net Adobe PDF -->
-				<dict>
-					<key>LSHandlerContentType</key>
-					<string>net.adobe.pdf</string>
-					<key>LSHandlerRoleAll</key>
-					<string>com.apple.Preview</string>
-					<key>LSHandlerPreferredVersions</key>
-					<dict>
-						<key>LSHandlerRoleAll</key>
-						<string>-</string>
-					</dict>
-				</dict>
-			</array>
+			</dict>
 		</dict>
 	</array>
-	
-	<!-- Profile metadata -->
 	<key>PayloadDescription</key>
-	<string>Forces Preview.app as the default handler for all PDF files, overriding user preferences</string>
+	<string>Configures Preview.app as the default application for PDF files</string>
 	<key>PayloadDisplayName</key>
 	<string>PDF Default Handler - Preview</string>
 	<key>PayloadIdentifier</key>
-	<string>com.organization.pdf-preview-default-profile</string>
+	<string>com.organization.pdf-preview-default</string>
 	<key>PayloadOrganization</key>
 	<string>Your Organization</string>
 	<key>PayloadRemovalDisallowed</key>
