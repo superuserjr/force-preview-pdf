@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- Profile metadata -->
+	<key>PayloadContent</key>
+	<array>
+		<dict>
+			<key>PayloadDescription</key>
+			<string>Configures Preview as the default application for PDF files</string>
+			<key>PayloadDisplayName</key>
+			<string>PDF Default Application Settings</string>
+			<key>PayloadIdentifier</key>
+			<string>com.mosyle.launchservices.pdf-preview-default</string>
+			<key>PayloadOrganization</key>
+			<string>Mosyle Deployment</string>
+			<key>PayloadType</key>
+			<string>com.apple.LSHandlers</string>
+			<key>PayloadUUID</key>
+			<string>3B2F7ADE-0D04-46B1-9C9A-9C3C2F20D9F1</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+			
+			<!-- LaunchServices Handlers -->
+			<key>LSHandlers</key>
+			<array>
+				<!-- PDF by content type (most common) -->
+				<dict>
+					<key>LSHandlerContentType</key>
+					<string>com.adobe.pdf</string>
+					<key>LSHandlerRoleAll</key>
+					<string>com.apple.Preview</string>
+					<key>LSHandlerPreferredVersions</key>
+					<dict>
+						<key>LSHandlerRoleAll</key>
+						<string>-</string>
+					</dict>
+				</dict>
+				
+				<!-- PDF by extension -->
+				<dict>
+					<key>LSHandlerContentTag</key>
+					<string>pdf</string>
+					<key>LSHandlerContentTagClass</key>
+					<string>public.filename-extension</string>
+					<key>LSHandlerRoleAll</key>
+					<string>com.apple.Preview</string>
+					<key>LSHandlerPreferredVersions</key>
+					<dict>
+						<key>LSHandlerRoleAll</key>
+						<string>-</string>
+					</dict>
+				</dict>
+				
+				<!-- Additional PDF UTIs -->
+				<dict>
+					<key>LSHandlerContentType</key>
+					<string>public.pdf</string>
+					<key>LSHandlerRoleAll</key>
+					<string>com.apple.Preview</string>
+					<key>LSHandlerPreferredVersions</key>
+					<dict>
+						<key>LSHandlerRoleAll</key>
+						<string>-</string>
+					</dict>
+				</dict>
+				
+				<!-- Adobe-specific PDF UTIs -->
+				<dict>
+					<key>LSHandlerContentType</key>
+					<string>com.adobe.acrobat.pdf</string>
+					<key>LSHandlerRoleAll</key>
+					<string>com.apple.Preview</string>
+					<key>LSHandlerPreferredVersions</key>
+					<dict>
+						<key>LSHandlerRoleAll</key>
+						<string>-</string>
+					</dict>
+				</dict>
+				
+				<!-- Net Adobe PDF -->
+				<dict>
+					<key>LSHandlerContentType</key>
+					<string>net.adobe.pdf</string>
+					<key>LSHandlerRoleAll</key>
+					<string>com.apple.Preview</string>
+					<key>LSHandlerPreferredVersions</key>
+					<dict>
+						<key>LSHandlerRoleAll</key>
+						<string>-</string>
+					</dict>
+				</dict>
+			</array>
+		</dict>
+	</array>
+	
+	<!-- Profile metadata -->
+	<key>PayloadDescription</key>
+	<string>Forces Preview.app as the default handler for all PDF files, overriding user preferences</string>
+	<key>PayloadDisplayName</key>
+	<string>PDF Default Handler - Preview</string>
+	<key>PayloadIdentifier</key>
+	<string>com.mosyle.pdf-preview-default-profile</string>
+	<key>PayloadOrganization</key>
+	<string>Mosyle Management</string>
+	<key>PayloadRemovalDisallowed</key>
+	<false/>
+	<key>PayloadScope</key>
+	<string>System</string>
+	<key>PayloadType</key>
+	<string>Configuration</string>
+	<key>PayloadUUID</key>
+	<string>91E3A26E-5A53-4E6F-8F0F-0A4B2A0F7CFE</string>
+	<key>PayloadVersion</key>
+	<integer>1</integer>
+</dict>
+</plist> 
