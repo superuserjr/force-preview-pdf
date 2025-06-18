@@ -16,6 +16,76 @@ This script addresses the common enterprise issue where Adobe Acrobat/Reader agg
 - **Detailed Logging**: Timestamped logs with clear status indicators
 - **Graceful Error Handling**: Won't fail if Adobe isn't installed
 
+## Configuration Profile (mobileconfig)
+
+The included `force_preview_pdf_default_mdm.mobileconfig` file provides an alternative or complementary approach to setting Preview as the default PDF handler through macOS configuration profiles.
+
+### What is the mobileconfig?
+
+The mobileconfig is an Apple Configuration Profile that uses the LaunchServices (LSHandlers) payload to define system-wide file associations. Unlike the script which makes changes after the fact, the configuration profile establishes these preferences at the system level and prevents users from changing them.
+
+### Key Components
+
+1. **LaunchServices Handlers**: The profile defines multiple handlers to catch all PDF file types:
+   - `com.adobe.pdf` - Adobe's PDF content type
+   - `public.pdf` - Apple's standard PDF UTI
+   - `com.adobe.acrobat.pdf` - Acrobat-specific PDF type
+   - `net.adobe.pdf` - Legacy Adobe PDF type
+   - `pdf` file extension - Catches files by extension
+
+2. **Profile Metadata**:
+   - PayloadIdentifier: `com.organization.pdf-preview-default-profile`
+   - PayloadScope: `System` - Applies to all users
+   - PayloadType: `com.apple.LSHandlers` - LaunchServices configuration
+
+### When to Use the mobileconfig vs Script
+
+**Use the mobileconfig when:**
+- You want a preventative approach that blocks Adobe from taking over
+- You need a persistent setting that users cannot change
+- You're deploying to new machines or doing initial setup
+- You want a cleaner, system-level solution
+
+**Use the script when:**
+- Adobe has already taken over as the default
+- You need to clean up existing Adobe processes and agents
+- You want to reset corrupted LaunchServices databases
+- You need immediate results on already-configured machines
+
+**Best Practice**: Deploy both! Use the mobileconfig for ongoing enforcement and the script for initial cleanup.
+
+### Deploying the mobileconfig
+
+#### Via Mosyle
+1. Navigate to Management > Profiles
+2. Click "Add Profile" and select "Custom Profile"
+3. Upload the `force_preview_pdf_default_mdm.mobileconfig` file
+4. Name it appropriately (e.g., "Force Preview PDF Default")
+5. Assign to target devices or groups
+
+#### Via Jamf
+1. Go to Computers > Configuration Profiles
+2. Click "New" and select "Upload"
+3. Upload the mobileconfig file
+4. Configure scope and deployment settings
+
+#### Via Kandji
+1. Navigate to Library > Custom Profiles
+2. Add new Custom Profile
+3. Upload the mobileconfig file
+4. Configure assignment rules
+
+### Customizing the mobileconfig
+
+To customize for your organization:
+1. Replace `Your Organization` with your company name
+2. Update the PayloadIdentifier to use your reverse domain (e.g., `com.yourcompany.pdf-preview-default`)
+3. Generate new UUIDs for PayloadUUID values if creating multiple versions
+
+### Technical Details
+
+The profile works by registering Preview.app (`com.apple.Preview`) as the handler for all PDF-related content types and extensions. The `LSHandlerRoleAll` key ensures Preview handles all operations (viewing, editing, printing) for PDFs. The multiple handler entries ensure comprehensive coverage of all PDF type identifiers that Adobe products might use.
+
 ## How It Works
 
 ```mermaid
