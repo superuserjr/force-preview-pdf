@@ -72,34 +72,6 @@ To customize for your organization:
 
 The profile works by registering Preview.app (`com.apple.Preview`) as the handler for all PDF-related content types and extensions through managed preferences.
 
-### Troubleshooting the mobileconfig
-
-#### System Preferences/Settings Shows Only "General" and "Spotlight"
-
-If after installing the profile your System Preferences/Settings app shows limited options:
-
-1. **Remove the problematic profile immediately**:
-   ```bash
-   sudo profiles remove -identifier com.organization.pdf-preview-default
-   ```
-   Or remove it through System Preferences > Profiles (if accessible)
-
-2. **Use the corrected version**: The updated mobileconfig file uses the proper `com.apple.ManagedClient.preferences` payload type.
-
-3. **If System Preferences is still broken**:
-   ```bash
-   # Reset preference cache
-   sudo killall cfprefsd
-   
-   # Remove preference files if needed
-   rm ~/Library/Preferences/com.apple.systempreferences.plist
-   
-   # Restart System Preferences
-   killall "System Preferences" 2>/dev/null || killall "System Settings" 2>/dev/null
-   ```
-
-4. **Verify the profile structure**: Always test configuration profiles on a non-production machine first.
-
 ## How the Script Works
 
 ```mermaid
