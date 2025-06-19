@@ -104,33 +104,30 @@ If after installing the profile your System Preferences/Settings app shows limit
 
 ```mermaid
 graph TD
-    A[Force Preview PDF Default Script] --> B[Clear PDF Preferences]
-    A --> C[Restart Services]
-    A --> D[Rebuild Database]
-    A --> E[Set Preview as Default]
+    A[Start Script] --> B[Step 1: Clear PDF Preferences]
+    B --> C[Step 2: Restart Preference Services]
+    C --> D[Step 3: Rebuild LaunchServices Database]
+    D --> E[Step 4: Register Preview.app]
+    E --> F[Step 5: Create User Preferences]
+    F --> G{Step 6: Optional}
+    G -->|Skip| H[Step 7: Restart UI Services]
+    G -->|Enable| I[Clear File Attributes]
+    I --> H
+    H --> J[Complete]
     
-    B --> B1[Remove PDF handlers only]
-    B --> B2[Preserve other file types]
-    
-    C --> C1[Restart cfprefsd]
-    C --> C2[Restart lsd]
-    
-    D --> D1[Rebuild LaunchServices]
-    D --> D2[Register Preview.app]
-    
-    E --> E1[Create user preferences]
-    E --> E2[Set PDF associations]
-    E --> E3[Restart UI services]
+    style G fill:#fffacd
+    style I fill:#fffacd
 ```
 
 ## Script Actions
 
 1. **Clear PDF Preferences**: Removes only PDF-specific handlers from existing preferences
-2. **Restart Services**: Restarts preference daemons to ensure changes take effect
+2. **Restart Services**: Restarts preference daemons to ensure changes take effect  
 3. **Rebuild Database**: Reconstructs the LaunchServices database for a fresh start
 4. **Register Preview**: Explicitly registers Preview.app as a PDF handler
 5. **Set User Preferences**: Creates preference files setting Preview as the PDF default
-6. **Apply Changes**: Restarts Finder and Dock for immediate effect
+6. **Clear File Attributes** (Optional): Removes file-specific PDF associations - disabled by default
+7. **Apply Changes**: Restarts Finder and Dock for immediate effect
 
 **Note**: The script focuses solely on changing the default PDF handler without affecting Adobe app functionality. Adobe apps remain fully functional for editing PDFs when explicitly opened.
 
@@ -154,6 +151,16 @@ sudo ./force_preview_pdf_default_mdm.sh
 
 The script typically completes in 30-45 seconds. The longest operation is rebuilding the LaunchServices database (~30 seconds).
 
+### Optional Step 6
+
+Step 6 (clearing file-specific PDF associations) is commented out by default because:
+- It's the slowest operation (can add several minutes on machines with many PDFs)
+- Scans all PDFs in Desktop, Documents, and Downloads folders
+- Only needed if users have manually set individual PDFs to "Always Open With" Adobe
+- The system-wide changes are usually sufficient
+
+To enable if needed, uncomment the code in Step 6 of the script.
+
 ## Logging
 
 The script provides detailed logging with timestamps and status indicators:
@@ -175,8 +182,9 @@ Example output:
 
 1. Ensure the script ran successfully (check logs)
 2. Have the user log out and back in
-3. Check if user has manually changed the default back to Adobe
-4. Note: Adobe apps may occasionally try to re-register as the default - this is normal behavior
+3. If the issue persists, enable Step 6 to clear file-specific associations
+4. Check if user has manually changed the default back to Adobe
+5. Note: Adobe apps may occasionally try to re-register as the default - this is normal behavior
 
 ### Script Fails
 

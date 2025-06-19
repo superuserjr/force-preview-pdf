@@ -152,12 +152,55 @@ done
 
 log "  ℹ Configured $users_configured user(s)"
 
-# Set files_cleared to 0 since we're skipping file attribute clearing
+# 6. Clear file-specific attributes on PDFs
+# COMMENTED OUT - This step is usually not necessary but can be enabled if needed
+# 
+# What this does:
+# - Scans Desktop, Documents, and Downloads folders for all users
+# - Looks for PDF files that have file-specific "Open With" settings
+# - These are created when a user right-clicks a PDF and chooses "Open With > Always Open With"
+# - Removes these file-specific overrides (com.apple.LaunchServices.OpenWith extended attribute)
+# 
+# Why it's disabled:
+# - This is the slowest part of the script (can take several minutes on machines with many PDFs)
+# - File-specific associations are relatively rare
+# - The system-wide default changes are usually sufficient
+# - Only needed if users have explicitly set individual PDFs to open with Adobe
+#
+# To enable: Uncomment the code below
+#
+# log ""
+# log "Step 6: Removing file-specific PDF associations..."
+# 
+# files_cleared=0
+# for user_dir in /Users/*; do
+#     if [[ -d "$user_dir" && $(basename "$user_dir") != "Shared" ]]; then
+#         username=$(basename "$user_dir")
+#         # Check common directories
+#         for dir in "$user_dir/Desktop" "$user_dir/Documents" "$user_dir/Downloads"; do
+#             if [[ -d "$dir" ]]; then
+#                 # Count PDFs with xattrs before removing
+#                 pdf_count=$(find "$dir" -name "*.pdf" -type f -exec xattr -l {} \; 2>/dev/null | grep -c "com.apple.LaunchServices.OpenWith" || echo 0)
+#                 if [ $pdf_count -gt 0 ]; then
+#                     find "$dir" -name "*.pdf" -type f -exec xattr -d com.apple.LaunchServices.OpenWith {} \; 2>/dev/null
+#                     log "  ✓ Cleared attributes from $pdf_count PDFs in $username's $(basename "$dir")"
+#                     ((files_cleared+=$pdf_count))
+#                 fi
+#             fi
+#         done
+#     fi
+# done
+# 
+# if [ $files_cleared -eq 0 ]; then
+#     log "  ℹ No PDFs had file-specific associations"
+# fi
+
+# Set files_cleared to 0 since we're skipping this step
 files_cleared=0
 
-# 6. Restart UI services to apply changes immediately
+# 7. Restart UI services to apply changes immediately
 log ""
-log "Step 6: Final cleanup..."
+log "Step 7: Final cleanup..."
 killall cfprefsd 2>/dev/null && log "  ✓ Restarted cfprefsd"
 killall Finder 2>/dev/null && log "  ✓ Restarted Finder"
 killall Dock 2>/dev/null && log "  ✓ Restarted Dock"
